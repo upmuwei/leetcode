@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//双指针法
 int main() {
     int n;
     int target = 1, i = 0;
