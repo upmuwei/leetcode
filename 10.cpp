@@ -1,47 +1,40 @@
-#include <iostream>
-#include <string>
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+       return match(s, p, 0, 0);
+    }   
 
-using namespace std;
-
-int main()
-{
-    string s, p;
-    cin >> s >> p;
-    int i = 0, j = 0, length1 = s.size(), length2 = p.size();
-    while(i < length1 && j < length2) {
-        if(p[j] == '.') {
-            i++;
-            if(p[j + 1] == '*') {
-                i = length1;
-                j++;
-            }
-        } else if(s[i] == p[j]) {
-            i++;
-            if(p[j + 1] == '*') {
-                int t = j;
-                j++;
-                while(s[i] == s[i - 1]) {
-                    i++;
-                    if(p[j + 1] == p[t]) {
-                        j++;
-                    }
+    bool match(string& s, string& p, int i, int j) {
+        if(i >= s.size() && j >= p.size()) {
+            return true;
+        }
+        if(j >= p.size()) {
+            return false;
+        }
+        if(i >= s.size()) {
+            while(j < p.size()) {
+                if(p[j] == '*') {
+                    j++;
+                }
+                else if(j < (p.size() - 1) && p[j + 1] == '*') {
+                    j += 2;
+                } else {
+                    return false;
                 }
             }
-        } else {
-            if(p[j +1] == '*') {
-                j++;
-            } else {
-                i = length1;
-            }
+            return true;
         }
-        j++;
+        if(s[i] == p[j] || p[j] == '.') {
+            if(j < (p.size() - 1) && p[j + 1] == '*') {
+                return match(s, p, i, j + 2) || match(s, p, i + 1, j);
+            } else {
+                return match(s, p, i + 1, j + 1);
+            }
+        } else {
+            if(j < (p.size() - 1) && p[j + 1] == '*') {
+                return match(s, p, i, j + 2);
+            }
+            return false;
+        }
     }
-    bool t = true;
-   
-    if(i == length1 && j == length2) {
-        cout << true << endl;
-    } else {
-        cout << false << endl;
-    }
-    return 0;
-}
+};
