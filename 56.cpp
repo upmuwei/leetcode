@@ -9,6 +9,7 @@ public:
             if(intervals[i][0] <= max) {
                 // cout << intervals[i][1] << endl;
                 max = (intervals[i][1] > max ? intervals[i][1] : max);
+                //其实还可以先找完所有的，再从后往前删除，就不会超时了
             } else {
                 vector<int> tmp;
                 tmp.push_back(min);
