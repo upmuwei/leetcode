@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 using namespace std;
 void getCombination(string digits, int p, string s) ;
 string project[10];
 vector<string> results;
+
 int main()
 {
     string digits = "23";
