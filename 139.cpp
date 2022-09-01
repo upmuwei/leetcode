@@ -39,4 +39,35 @@ public:
         }
         return false;
     }
+
+    bool wordBreak2(string s, vector<string>& wordDict) {
+        vector<bool> indexs(s.size() + 1, false);
+        indexs[0] = true;
+        vector<vector<int>> wordIndex;
+        int length;
+        for(auto w : wordDict) {
+            int position = s.find(w);
+            while(position != -1) {
+                vector<int> t;
+                t.push_back(position);
+                t.push_back(w.size());
+                wordIndex.push_back(t);
+                position = s.find(w, position + 1);
+            }
+        }
+        sort(wordIndex.begin(),wordIndex.end());
+        for(int i = 0; i < s.size(); i++) {
+            if(indexs[i] == false) {
+                continue;
+            }
+            for(int j = 0; j < wordIndex.size(); j++) {
+                if(wordIndex[j][0] == i) {
+                    indexs[i + wordIndex[j][1]] = true;
+                } else if(wordIndex[j][0] > i) {
+                    break;
+                }
+            }
+        }
+        return indexs[s.size()];
+    }
 };
