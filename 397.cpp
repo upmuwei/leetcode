@@ -12,10 +12,13 @@ public:
         if(records.find(n) != records.end()) {
             return records[n];
         }
+        int result;
         if(n % 2 == 0) {
-            return DFS(n / 2) + 1;
+            result =  DFS(n / 2) + 1;
         } else {
-            return min(DFS(n + 1), DFS(n - 1)) + 1;
+            result = min(DFS(n + 1), DFS(n - 1)) + 1;
         }
+        records[n] = result;
+        return result;
     }
 };
